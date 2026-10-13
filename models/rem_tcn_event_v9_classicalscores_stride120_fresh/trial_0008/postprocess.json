@@ -1,0 +1,9 @@
+{
+  "temperature": 2.0371854305267334,
+  "event_mix": 0.7261786718735299,
+  "start_threshold": 0.45,
+  "stop_threshold": 0.2,
+  "gap_seconds": 5.0,
+  "min_episode_seconds": 30.0,
+  "event_match_min_overlap_seconds": 30.0
+}

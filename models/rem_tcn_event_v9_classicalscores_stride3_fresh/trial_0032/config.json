@@ -1,0 +1,23 @@
+{
+  "arch": "dual_tcn_event_v9",
+  "d_model": 96,
+  "stem_dim": 64,
+  "blocks": 5,
+  "kernel_size": 9,
+  "dropout": 0.1358000341503632,
+  "win": 600,
+  "stride": 3,
+  "use_time_features": false,
+  "use_derivative_features": true,
+  "test_dataset_name": "COMBINED_CAFFEINE",
+  "shared_base_features": [
+    "Motion_Ang_Vector",
+    "OIS_norm"
+  ],
+  "feature_names": [
+    "Motion_Ang_Vector",
+    "OIS_norm",
+    "d_Motion_Ang_Vector",
+    "d_OIS_norm"
+  ]
+}

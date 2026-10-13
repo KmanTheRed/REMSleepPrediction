@@ -1,0 +1,23 @@
+Complete the blinded REM-scoring stage in this clean working directory.
+
+1. Read prompt.txt and obey it for every prediction.
+2. Study the calibration bank. `calibration/train.jsonl` contains 160 labeled
+   examples and `calibration/development.jsonl` contains 40 labeled examples.
+   You may inspect any of their referenced images to calibrate visual judgments.
+3. Score the one non-calibration stage directory in this working directory.
+   Read its frames.jsonl and visually inspect every referenced image.
+4. Treat frames independently. Do not use one held-out prediction as evidence for
+   another and do not infer an animal, label, or time from ordering or identity.
+   Every image spans -5 to 35 minutes, but only its visibly bounded 0–30 minute
+   center is scored. Use the outer bands only as context and express boundaries
+   as 0–1800 seconds from the 0-minute score boundary.
+5. Copy predictions_template.jsonl to predictions.jsonl and replace each empty
+   episodes array with your raw candidate episodes. Do not apply the 5-second
+   merge or 30-second duration rule yourself.
+6. Before finishing, verify that predictions.jsonl is valid JSONL, contains every
+   expected frame_id exactly once, contains no other frame_id, and has 200 rows.
+
+Do not open anything outside this clean directory. Do not use web search, saved
+memory, prior chats, prior prediction files, source data, scoring code, or hidden
+labels. Do not calculate or request performance scores. Your only deliverable is
+predictions.jsonl.

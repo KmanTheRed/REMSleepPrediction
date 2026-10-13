@@ -1,0 +1,872 @@
+{
+  "protocol": {
+    "interval_convention": "half-open [start, end)",
+    "postprocessing_order": "merge gaps <= 5 s, then discard duration < 30 s",
+    "applied_to": "reference and all three prediction streams",
+    "tcn_rule_label_threshold": 0.8,
+    "tcn_expert_label_threshold": 0.5,
+    "adaptive_gate": "IoU >= max(0.5, (L - 10)/(L + 10)), L = reference duration in seconds",
+    "adaptive_interpretation": "equal-duration prediction displaced by up to 10 seconds; allowance fixed before evaluation",
+    "matching": "ordered maximum-cardinality one-to-one matching; maximum summed IoU tie-break"
+  },
+  "sources": {
+    "A1": {
+      "reference": "D:\\downloads\\Kethan\\Kethan\\newData\\ManualScores\\COMBINED_CAFFEINE\\manualscore1.txt",
+      "reference_base": "2022-04-08 00:00:00",
+      "hand_tuned_rules": "D:\\downloads\\Kethan\\Kethan\\newData\\MLModelScores\\COMBINED_CAFFEINE_A1_2022-04-08_to_2022-04-15\\classicalModel\\classicalModel_RAW_ranges_thr0.500A1.txt",
+      "tcn_rule_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_classicalscores_stride120_fresh\\trial_0000\\test_predictions_COMBINED_CAFFEINE_t0000.csv",
+      "tcn_expert_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_manualscores_stride120_fresh\\trial_0064\\test_predictions_COMBINED_CAFFEINE064.csv"
+    },
+    "A3": {
+      "reference": "D:\\downloads\\Kethan\\Kethan\\newData\\ManualScores\\COMBINED_CAFFEINE3\\manualscore 3.txt",
+      "reference_base": "2022-07-20 00:00:00",
+      "hand_tuned_rules": "D:\\downloads\\Kethan\\Kethan\\newData\\MLModelScores\\COMBINED_CAFFEINE_A3_2022-07-20_to_2022-07-27\\classicalModel\\classicalModel_RAW_ranges_thr0.500A3.txt",
+      "tcn_rule_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_classicalscores_stride120_fresh\\trial_0000\\A3_pred_t0000.csv",
+      "tcn_expert_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_manualscores_stride120_fresh\\trial_0064\\A3_pred0064.csv"
+    },
+    "A5": {
+      "reference": "D:\\downloads\\Kethan\\Kethan\\newData\\ManualScores\\COMBINED_CAFFEINE5\\manualscore5.txt",
+      "reference_base": "2022-10-04 00:00:00",
+      "hand_tuned_rules": "D:\\downloads\\Kethan\\Kethan\\newData\\MLModelScores\\animal5_20221003B_trimmed\\classicalModel\\classicalModel_RAW_ranges_thr0.500A5.txt",
+      "tcn_rule_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_classicalscores_stride120_fresh\\trial_0000\\A5_pred_t0000.csv",
+      "tcn_expert_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_manualscores_stride120_fresh\\trial_0064\\A5_pred0064.csv"
+    },
+    "A6": {
+      "reference": "D:\\downloads\\Kethan\\Kethan\\newData\\ManualScores\\COMBINED_CAFFEINE6\\manualscore6.txt",
+      "reference_base": "2023-06-05 00:00:00",
+      "hand_tuned_rules": "D:\\downloads\\Kethan\\Kethan\\newData\\MLModelScores\\COMBINED_CAFFEINE_A6_2023-06-05_to_2023-06-08\\classicalModel\\classicalModel_RAW_ranges_thr0.500A6.txt",
+      "tcn_rule_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_classicalscores_stride120_fresh\\trial_0000\\A6_pred_t0000.csv",
+      "tcn_expert_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_manualscores_stride120_fresh\\trial_0064\\A6_pred0064.csv"
+    },
+    "A8": {
+      "reference": "D:\\downloads\\Kethan\\Kethan\\newData\\ManualScores\\COMBINED_CAFFEINE8\\wowCombinedCaffeine8.txt",
+      "reference_base": "2023-06-08 00:00:00",
+      "hand_tuned_rules": "D:\\downloads\\Kethan\\Kethan\\newData\\MLModelScores\\COMBINED_CAFFEINE_A8_2023-06-08_to_2023-06-22\\classicalModel\\classicalModel_RAW_ranges_thr0.500A8.txt",
+      "tcn_rule_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_classicalscores_stride120_fresh\\trial_0000\\A8_pred_t0000.csv",
+      "tcn_expert_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_manualscores_stride120_fresh\\trial_0064\\A8_pred0064.csv"
+    },
+    "A11": {
+      "reference": "D:\\downloads\\Kethan\\Kethan\\newData\\ManualScores\\COMBINED_CAFFEINE11\\A11ManualScore.txt",
+      "reference_base": "2023-06-20 00:00:00",
+      "hand_tuned_rules": "D:\\downloads\\Kethan\\Kethan\\newData\\MLModelScores\\20230616B\\classicalModel\\classicalModel_RAW_ranges_thr0.500A11.txt",
+      "tcn_rule_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_classicalscores_stride120_fresh\\trial_0000\\A11_pred_t0000.csv",
+      "tcn_expert_labels": "D:\\downloads\\Kethan\\Kethan\\rem_tcn_event_v9_manualscores_stride120_fresh\\trial_0064\\A11_pred0064.csv"
+    }
+  },
+  "diagnostics": {
+    "A1": {
+      "coverage_start": "2022-04-08 00:09:59",
+      "coverage_end_exclusive": "2022-04-15 00:00:01",
+      "reference_events": 234,
+      "Hand-tuned rules_events": 324,
+      "TCN, rule labels_events": 314,
+      "TCN, expert labels_events": 247
+    },
+    "A3": {
+      "coverage_start": "2022-07-20 00:09:59",
+      "coverage_end_exclusive": "2022-07-27 00:00:00",
+      "reference_events": 287,
+      "Hand-tuned rules_events": 317,
+      "TCN, rule labels_events": 338,
+      "TCN, expert labels_events": 273
+    },
+    "A5": {
+      "coverage_start": "2022-10-04 00:09:59",
+      "coverage_end_exclusive": "2022-10-18 00:00:01",
+      "reference_events": 589,
+      "Hand-tuned rules_events": 628,
+      "TCN, rule labels_events": 690,
+      "TCN, expert labels_events": 579
+    },
+    "A6": {
+      "coverage_start": "2023-06-05 00:09:59",
+      "coverage_end_exclusive": "2023-06-08 00:00:00",
+      "reference_events": 117,
+      "Hand-tuned rules_events": 101,
+      "TCN, rule labels_events": 112,
+      "TCN, expert labels_events": 115
+    },
+    "A8": {
+      "coverage_start": "2023-06-08 00:09:59",
+      "coverage_end_exclusive": "2023-06-22 00:00:00",
+      "reference_events": 615,
+      "Hand-tuned rules_events": 588,
+      "TCN, rule labels_events": 565,
+      "TCN, expert labels_events": 541
+    },
+    "A11": {
+      "coverage_start": "2023-06-20 00:09:59",
+      "coverage_end_exclusive": "2023-07-03 00:00:00",
+      "reference_events": 571,
+      "Hand-tuned rules_events": 624,
+      "TCN, rule labels_events": 592,
+      "TCN, expert labels_events": 584
+    }
+  },
+  "animals": {
+    "A1": {
+      "Hand-tuned rules": {
+        "fixed_0.5": {
+          "tp": 204,
+          "fp": 120,
+          "fn": 30,
+          "precision": 0.6296296296296297,
+          "recall": 0.8717948717948718,
+          "f1": 0.7311827956989246,
+          "mean_matched_iou": 0.8186846841514056
+        },
+        "fixed_0.7": {
+          "tp": 160,
+          "fp": 164,
+          "fn": 74,
+          "precision": 0.49382716049382713,
+          "recall": 0.6837606837606838,
+          "f1": 0.5734767025089605,
+          "mean_matched_iou": 0.8740534280006929
+        },
+        "adaptive": {
+          "tp": 119,
+          "fp": 205,
+          "fn": 115,
+          "precision": 0.36728395061728397,
+          "recall": 0.5085470085470085,
+          "f1": 0.4265232974910394,
+          "mean_matched_iou": 0.9014357393714173
+        }
+      },
+      "TCN, rule labels": {
+        "fixed_0.5": {
+          "tp": 219,
+          "fp": 95,
+          "fn": 15,
+          "precision": 0.697452229299363,
+          "recall": 0.9358974358974359,
+          "f1": 0.7992700729927007,
+          "mean_matched_iou": 0.8383433610087999
+        },
+        "fixed_0.7": {
+          "tp": 185,
+          "fp": 129,
+          "fn": 49,
+          "precision": 0.589171974522293,
+          "recall": 0.7905982905982906,
+          "f1": 0.6751824817518248,
+          "mean_matched_iou": 0.8794636975503892
+        },
+        "adaptive": {
+          "tp": 156,
+          "fp": 158,
+          "fn": 78,
+          "precision": 0.4968152866242038,
+          "recall": 0.6666666666666666,
+          "f1": 0.5693430656934306,
+          "mean_matched_iou": 0.8888459127458105
+        }
+      },
+      "TCN, expert labels": {
+        "fixed_0.5": {
+          "tp": 203,
+          "fp": 44,
+          "fn": 31,
+          "precision": 0.8218623481781376,
+          "recall": 0.8675213675213675,
+          "f1": 0.8440748440748441,
+          "mean_matched_iou": 0.8742484526360143
+        },
+        "fixed_0.7": {
+          "tp": 189,
+          "fp": 58,
+          "fn": 45,
+          "precision": 0.7651821862348178,
+          "recall": 0.8076923076923077,
+          "f1": 0.7858627858627858,
+          "mean_matched_iou": 0.8932750226915465
+        },
+        "adaptive": {
+          "tp": 164,
+          "fp": 83,
+          "fn": 70,
+          "precision": 0.6639676113360324,
+          "recall": 0.7008547008547008,
+          "f1": 0.6819126819126818,
+          "mean_matched_iou": 0.9065022276749417
+        }
+      }
+    },
+    "A3": {
+      "Hand-tuned rules": {
+        "fixed_0.5": {
+          "tp": 233,
+          "fp": 84,
+          "fn": 54,
+          "precision": 0.7350157728706624,
+          "recall": 0.8118466898954704,
+          "f1": 0.7715231788079471,
+          "mean_matched_iou": 0.8394489567716574
+        },
+        "fixed_0.7": {
+          "tp": 196,
+          "fp": 121,
+          "fn": 91,
+          "precision": 0.6182965299684543,
+          "recall": 0.6829268292682927,
+          "f1": 0.6490066225165563,
+          "mean_matched_iou": 0.882152762931507
+        },
+        "adaptive": {
+          "tp": 171,
+          "fp": 146,
+          "fn": 116,
+          "precision": 0.5394321766561514,
+          "recall": 0.5958188153310104,
+          "f1": 0.5662251655629139,
+          "mean_matched_iou": 0.8911666830988688
+        }
+      },
+      "TCN, rule labels": {
+        "fixed_0.5": {
+          "tp": 235,
+          "fp": 103,
+          "fn": 52,
+          "precision": 0.6952662721893491,
+          "recall": 0.818815331010453,
+          "f1": 0.752,
+          "mean_matched_iou": 0.7713356496646597
+        },
+        "fixed_0.7": {
+          "tp": 162,
+          "fp": 176,
+          "fn": 125,
+          "precision": 0.47928994082840237,
+          "recall": 0.5644599303135889,
+          "f1": 0.5184,
+          "mean_matched_iou": 0.8389036158467948
+        },
+        "adaptive": {
+          "tp": 129,
+          "fp": 209,
+          "fn": 158,
+          "precision": 0.3816568047337278,
+          "recall": 0.44947735191637633,
+          "f1": 0.4128,
+          "mean_matched_iou": 0.8394944668423814
+        }
+      },
+      "TCN, expert labels": {
+        "fixed_0.5": {
+          "tp": 249,
+          "fp": 24,
+          "fn": 38,
+          "precision": 0.9120879120879121,
+          "recall": 0.867595818815331,
+          "f1": 0.8892857142857141,
+          "mean_matched_iou": 0.8805454057535018
+        },
+        "fixed_0.7": {
+          "tp": 235,
+          "fp": 38,
+          "fn": 52,
+          "precision": 0.8608058608058609,
+          "recall": 0.818815331010453,
+          "f1": 0.8392857142857143,
+          "mean_matched_iou": 0.8953947435154966
+        },
+        "adaptive": {
+          "tp": 219,
+          "fp": 54,
+          "fn": 68,
+          "precision": 0.8021978021978022,
+          "recall": 0.7630662020905923,
+          "f1": 0.7821428571428571,
+          "mean_matched_iou": 0.9011531931481233
+        }
+      }
+    },
+    "A5": {
+      "Hand-tuned rules": {
+        "fixed_0.5": {
+          "tp": 542,
+          "fp": 86,
+          "fn": 47,
+          "precision": 0.8630573248407644,
+          "recall": 0.9202037351443124,
+          "f1": 0.8907148726376335,
+          "mean_matched_iou": 0.8462448855912992
+        },
+        "fixed_0.7": {
+          "tp": 462,
+          "fp": 166,
+          "fn": 127,
+          "precision": 0.7356687898089171,
+          "recall": 0.7843803056027164,
+          "f1": 0.7592440427280197,
+          "mean_matched_iou": 0.8859510371697082
+        },
+        "adaptive": {
+          "tp": 413,
+          "fp": 215,
+          "fn": 176,
+          "precision": 0.6576433121019108,
+          "recall": 0.7011884550084889,
+          "f1": 0.6787181594083812,
+          "mean_matched_iou": 0.8942862583601139
+        }
+      },
+      "TCN, rule labels": {
+        "fixed_0.5": {
+          "tp": 516,
+          "fp": 174,
+          "fn": 73,
+          "precision": 0.7478260869565218,
+          "recall": 0.8760611205432938,
+          "f1": 0.806880375293198,
+          "mean_matched_iou": 0.7663853760157674
+        },
+        "fixed_0.7": {
+          "tp": 366,
+          "fp": 324,
+          "fn": 223,
+          "precision": 0.5304347826086957,
+          "recall": 0.6213921901528013,
+          "f1": 0.5723221266614543,
+          "mean_matched_iou": 0.8259433343407379
+        },
+        "adaptive": {
+          "tp": 257,
+          "fp": 433,
+          "fn": 332,
+          "precision": 0.372463768115942,
+          "recall": 0.4363327674023769,
+          "f1": 0.401876465989054,
+          "mean_matched_iou": 0.8332975225705217
+        }
+      },
+      "TCN, expert labels": {
+        "fixed_0.5": {
+          "tp": 519,
+          "fp": 60,
+          "fn": 70,
+          "precision": 0.8963730569948186,
+          "recall": 0.8811544991511036,
+          "f1": 0.8886986301369861,
+          "mean_matched_iou": 0.8615742652247458
+        },
+        "fixed_0.7": {
+          "tp": 468,
+          "fp": 111,
+          "fn": 121,
+          "precision": 0.8082901554404145,
+          "recall": 0.7945670628183361,
+          "f1": 0.8013698630136986,
+          "mean_matched_iou": 0.890461642811042
+        },
+        "adaptive": {
+          "tp": 440,
+          "fp": 139,
+          "fn": 149,
+          "precision": 0.7599309153713298,
+          "recall": 0.7470288624787776,
+          "f1": 0.7534246575342465,
+          "mean_matched_iou": 0.8972604240949122
+        }
+      }
+    },
+    "A6": {
+      "Hand-tuned rules": {
+        "fixed_0.5": {
+          "tp": 82,
+          "fp": 19,
+          "fn": 35,
+          "precision": 0.8118811881188119,
+          "recall": 0.7008547008547008,
+          "f1": 0.7522935779816514,
+          "mean_matched_iou": 0.7342187955073837
+        },
+        "fixed_0.7": {
+          "tp": 44,
+          "fp": 57,
+          "fn": 73,
+          "precision": 0.43564356435643564,
+          "recall": 0.37606837606837606,
+          "f1": 0.4036697247706422,
+          "mean_matched_iou": 0.8477152338552397
+        },
+        "adaptive": {
+          "tp": 32,
+          "fp": 69,
+          "fn": 85,
+          "precision": 0.31683168316831684,
+          "recall": 0.27350427350427353,
+          "f1": 0.29357798165137616,
+          "mean_matched_iou": 0.874879831197148
+        }
+      },
+      "TCN, rule labels": {
+        "fixed_0.5": {
+          "tp": 92,
+          "fp": 20,
+          "fn": 25,
+          "precision": 0.8214285714285714,
+          "recall": 0.7863247863247863,
+          "f1": 0.8034934497816593,
+          "mean_matched_iou": 0.6952133649818967
+        },
+        "fixed_0.7": {
+          "tp": 46,
+          "fp": 66,
+          "fn": 71,
+          "precision": 0.4107142857142857,
+          "recall": 0.39316239316239315,
+          "f1": 0.40174672489082963,
+          "mean_matched_iou": 0.7951218999607719
+        },
+        "adaptive": {
+          "tp": 21,
+          "fp": 91,
+          "fn": 96,
+          "precision": 0.1875,
+          "recall": 0.1794871794871795,
+          "f1": 0.1834061135371179,
+          "mean_matched_iou": 0.8250783381743477
+        }
+      },
+      "TCN, expert labels": {
+        "fixed_0.5": {
+          "tp": 110,
+          "fp": 5,
+          "fn": 7,
+          "precision": 0.9565217391304348,
+          "recall": 0.9401709401709402,
+          "f1": 0.9482758620689655,
+          "mean_matched_iou": 0.8519069237797092
+        },
+        "fixed_0.7": {
+          "tp": 97,
+          "fp": 18,
+          "fn": 20,
+          "precision": 0.8434782608695652,
+          "recall": 0.8290598290598291,
+          "f1": 0.8362068965517241,
+          "mean_matched_iou": 0.8789970379310725
+        },
+        "adaptive": {
+          "tp": 85,
+          "fp": 30,
+          "fn": 32,
+          "precision": 0.7391304347826086,
+          "recall": 0.7264957264957265,
+          "f1": 0.7327586206896552,
+          "mean_matched_iou": 0.8916935439266505
+        }
+      }
+    },
+    "A8": {
+      "Hand-tuned rules": {
+        "fixed_0.5": {
+          "tp": 509,
+          "fp": 79,
+          "fn": 106,
+          "precision": 0.8656462585034014,
+          "recall": 0.8276422764227642,
+          "f1": 0.8462177888611805,
+          "mean_matched_iou": 0.8368310507501708
+        },
+        "fixed_0.7": {
+          "tp": 414,
+          "fp": 174,
+          "fn": 201,
+          "precision": 0.7040816326530612,
+          "recall": 0.6731707317073171,
+          "f1": 0.688279301745636,
+          "mean_matched_iou": 0.8881569519387555
+        },
+        "adaptive": {
+          "tp": 401,
+          "fp": 187,
+          "fn": 214,
+          "precision": 0.6819727891156463,
+          "recall": 0.6520325203252032,
+          "f1": 0.6666666666666666,
+          "mean_matched_iou": 0.8869628536516864
+        }
+      },
+      "TCN, rule labels": {
+        "fixed_0.5": {
+          "tp": 496,
+          "fp": 69,
+          "fn": 119,
+          "precision": 0.8778761061946903,
+          "recall": 0.8065040650406504,
+          "f1": 0.8406779661016949,
+          "mean_matched_iou": 0.7814936534961119
+        },
+        "fixed_0.7": {
+          "tp": 367,
+          "fp": 198,
+          "fn": 248,
+          "precision": 0.6495575221238938,
+          "recall": 0.5967479674796748,
+          "f1": 0.6220338983050847,
+          "mean_matched_iou": 0.8358314800391292
+        },
+        "adaptive": {
+          "tp": 311,
+          "fp": 254,
+          "fn": 304,
+          "precision": 0.5504424778761062,
+          "recall": 0.5056910569105691,
+          "f1": 0.5271186440677966,
+          "mean_matched_iou": 0.8294460899828534
+        }
+      },
+      "TCN, expert labels": {
+        "fixed_0.5": {
+          "tp": 515,
+          "fp": 26,
+          "fn": 100,
+          "precision": 0.9519408502772643,
+          "recall": 0.8373983739837398,
+          "f1": 0.8910034602076125,
+          "mean_matched_iou": 0.8730379457715876
+        },
+        "fixed_0.7": {
+          "tp": 485,
+          "fp": 56,
+          "fn": 130,
+          "precision": 0.8964879852125693,
+          "recall": 0.7886178861788617,
+          "f1": 0.8391003460207612,
+          "mean_matched_iou": 0.8895550168902302
+        },
+        "adaptive": {
+          "tp": 461,
+          "fp": 80,
+          "fn": 154,
+          "precision": 0.8521256931608133,
+          "recall": 0.7495934959349594,
+          "f1": 0.7975778546712803,
+          "mean_matched_iou": 0.8938567211669081
+        }
+      }
+    },
+    "A11": {
+      "Hand-tuned rules": {
+        "fixed_0.5": {
+          "tp": 503,
+          "fp": 121,
+          "fn": 68,
+          "precision": 0.8060897435897436,
+          "recall": 0.8809106830122592,
+          "f1": 0.8418410041841003,
+          "mean_matched_iou": 0.8067929974904502
+        },
+        "fixed_0.7": {
+          "tp": 381,
+          "fp": 243,
+          "fn": 190,
+          "precision": 0.6105769230769231,
+          "recall": 0.6672504378283712,
+          "f1": 0.6376569037656904,
+          "mean_matched_iou": 0.8697174924177019
+        },
+        "adaptive": {
+          "tp": 341,
+          "fp": 283,
+          "fn": 230,
+          "precision": 0.5464743589743589,
+          "recall": 0.5971978984238179,
+          "f1": 0.5707112970711297,
+          "mean_matched_iou": 0.8691395239058434
+        }
+      },
+      "TCN, rule labels": {
+        "fixed_0.5": {
+          "tp": 472,
+          "fp": 120,
+          "fn": 99,
+          "precision": 0.7972972972972973,
+          "recall": 0.8266199649737302,
+          "f1": 0.8116938950988821,
+          "mean_matched_iou": 0.7812359781730077
+        },
+        "fixed_0.7": {
+          "tp": 348,
+          "fp": 244,
+          "fn": 223,
+          "precision": 0.5878378378378378,
+          "recall": 0.6094570928196147,
+          "f1": 0.5984522785898538,
+          "mean_matched_iou": 0.8375816326568097
+        },
+        "adaptive": {
+          "tp": 285,
+          "fp": 307,
+          "fn": 286,
+          "precision": 0.4814189189189189,
+          "recall": 0.4991243432574431,
+          "f1": 0.4901117798796217,
+          "mean_matched_iou": 0.8346539272322584
+        }
+      },
+      "TCN, expert labels": {
+        "fixed_0.5": {
+          "tp": 501,
+          "fp": 83,
+          "fn": 70,
+          "precision": 0.8578767123287672,
+          "recall": 0.8774080560420315,
+          "f1": 0.8675324675324676,
+          "mean_matched_iou": 0.8461010445748341
+        },
+        "fixed_0.7": {
+          "tp": 434,
+          "fp": 150,
+          "fn": 137,
+          "precision": 0.7431506849315068,
+          "recall": 0.7600700525394045,
+          "f1": 0.7515151515151516,
+          "mean_matched_iou": 0.8821954447693425
+        },
+        "adaptive": {
+          "tp": 406,
+          "fp": 178,
+          "fn": 165,
+          "precision": 0.6952054794520548,
+          "recall": 0.7110332749562172,
+          "f1": 0.703030303030303,
+          "mean_matched_iou": 0.8860680790113997
+        }
+      }
+    }
+  },
+  "macro_all_6": {
+    "Hand-tuned rules": {
+      "fixed_0.5_precision": 0.7852199862588356,
+      "fixed_0.5_recall": 0.8355421595207297,
+      "fixed_0.5_f1": 0.8056288696952395,
+      "fixed_0.7_precision": 0.5996824333929364,
+      "fixed_0.7_recall": 0.6445928940392929,
+      "fixed_0.7_f1": 0.6185555496725842,
+      "adaptive_precision": 0.5182730451056113,
+      "adaptive_recall": 0.5547148285233005,
+      "adaptive_f1": 0.5337370946419179
+    },
+    "TCN, rule labels": {
+      "fixed_0.5_precision": 0.7728577605609654,
+      "fixed_0.5_recall": 0.8417037839650582,
+      "fixed_0.5_f1": 0.8023359598780225,
+      "fixed_0.7_precision": 0.5411677239392347,
+      "fixed_0.7_recall": 0.5959696440877272,
+      "fixed_0.7_f1": 0.5646895850331746,
+      "adaptive_precision": 0.41171620937814984,
+      "adaptive_recall": 0.45612989427343525,
+      "adaptive_f1": 0.4307760115278368
+    },
+    "TCN, expert labels": {
+      "fixed_0.5_precision": 0.8994437698328891,
+      "fixed_0.5_recall": 0.8785415092807524,
+      "fixed_0.5_f1": 0.8881451630510983,
+      "fixed_0.7_precision": 0.8195658555824558,
+      "fixed_0.7_recall": 0.7998037448831986,
+      "fixed_0.7_f1": 0.8088901262083059,
+      "adaptive_precision": 0.7520929893834403,
+      "adaptive_recall": 0.7330120438018289,
+      "adaptive_f1": 0.7418078291635041
+    }
+  },
+  "macro_held_out_4": {
+    "Hand-tuned rules": {
+      "fixed_0.5_precision": 0.8366686287631804,
+      "fixed_0.5_recall": 0.8324028488585091,
+      "fixed_0.5_f1": 0.8327668109161415,
+      "fixed_0.7_precision": 0.6214927274738343,
+      "fixed_0.7_recall": 0.6252174628016952,
+      "fixed_0.7_f1": 0.6222124932524971,
+      "adaptive_precision": 0.5507305358400583,
+      "adaptive_recall": 0.5559807868154458,
+      "adaptive_f1": 0.5524185261993884
+    },
+    "TCN, rule labels": {
+      "fixed_0.5_precision": 0.8111070154692701,
+      "fixed_0.5_recall": 0.8238774842206151,
+      "fixed_0.5_f1": 0.8156864215688586,
+      "fixed_0.7_precision": 0.5446361070711783,
+      "fixed_0.7_recall": 0.555189910903621,
+      "fixed_0.7_f1": 0.5486387571118057,
+      "adaptive_precision": 0.3979562912277418,
+      "adaptive_recall": 0.4051588367643922,
+      "adaptive_f1": 0.40062825086839754
+    },
+    "TCN, expert labels": {
+      "fixed_0.5_precision": 0.9156780896828212,
+      "fixed_0.5_recall": 0.8840329673369538,
+      "fixed_0.5_f1": 0.8988776049865079,
+      "fixed_0.7_precision": 0.822851771613514,
+      "fixed_0.7_recall": 0.7930787076491079,
+      "fixed_0.7_f1": 0.8070480642753339,
+      "adaptive_precision": 0.7615981306917017,
+      "adaptive_recall": 0.7335378399664202,
+      "adaptive_f1": 0.7466978589813713
+    }
+  },
+  "pooled_all_6": {
+    "Hand-tuned rules": {
+      "fixed_0.5": {
+        "tp": 2073,
+        "fp": 509,
+        "fn": 340,
+        "precision": 0.80286599535244,
+        "recall": 0.8590965602983838,
+        "f1": 0.83003003003003
+      },
+      "fixed_0.7": {
+        "tp": 1657,
+        "fp": 925,
+        "fn": 756,
+        "precision": 0.6417505809450039,
+        "recall": 0.6866970576046415,
+        "f1": 0.6634634634634635
+      },
+      "adaptive": {
+        "tp": 1477,
+        "fp": 1105,
+        "fn": 936,
+        "precision": 0.5720371804802479,
+        "recall": 0.61210111893908,
+        "f1": 0.5913913913913914
+      }
+    },
+    "TCN, rule labels": {
+      "fixed_0.5": {
+        "tp": 2030,
+        "fp": 581,
+        "fn": 383,
+        "precision": 0.7774798927613941,
+        "recall": 0.841276419394944,
+        "f1": 0.8081210191082803
+      },
+      "fixed_0.7": {
+        "tp": 1474,
+        "fp": 1137,
+        "fn": 939,
+        "precision": 0.5645346610494063,
+        "recall": 0.6108578532946539,
+        "f1": 0.5867834394904459
+      },
+      "adaptive": {
+        "tp": 1159,
+        "fp": 1452,
+        "fn": 1254,
+        "precision": 0.4438912294140176,
+        "recall": 0.48031496062992124,
+        "f1": 0.4613853503184713
+      }
+    },
+    "TCN, expert labels": {
+      "fixed_0.5": {
+        "tp": 2097,
+        "fp": 242,
+        "fn": 316,
+        "precision": 0.8965369816160752,
+        "recall": 0.8690426854537919,
+        "f1": 0.8825757575757576
+      },
+      "fixed_0.7": {
+        "tp": 1908,
+        "fp": 431,
+        "fn": 505,
+        "precision": 0.8157332193244976,
+        "recall": 0.7907169498549523,
+        "f1": 0.803030303030303
+      },
+      "adaptive": {
+        "tp": 1775,
+        "fp": 564,
+        "fn": 638,
+        "precision": 0.7588713125267208,
+        "recall": 0.7355988396187318,
+        "f1": 0.747053872053872
+      }
+    }
+  },
+  "pooled_held_out_4": {
+    "Hand-tuned rules": {
+      "fixed_0.5": {
+        "tp": 1636,
+        "fp": 305,
+        "fn": 256,
+        "precision": 0.8428645028335909,
+        "recall": 0.864693446088795,
+        "f1": 0.8536394469084267
+      },
+      "fixed_0.7": {
+        "tp": 1301,
+        "fp": 640,
+        "fn": 591,
+        "precision": 0.6702730551262236,
+        "recall": 0.6876321353065539,
+        "f1": 0.6788416384033394
+      },
+      "adaptive": {
+        "tp": 1187,
+        "fp": 754,
+        "fn": 705,
+        "precision": 0.6115404430705822,
+        "recall": 0.6273784355179705,
+        "f1": 0.6193582050613098
+      }
+    },
+    "TCN, rule labels": {
+      "fixed_0.5": {
+        "tp": 1576,
+        "fp": 383,
+        "fn": 316,
+        "precision": 0.8044920877998979,
+        "recall": 0.8329809725158562,
+        "f1": 0.8184887042326668
+      },
+      "fixed_0.7": {
+        "tp": 1127,
+        "fp": 832,
+        "fn": 765,
+        "precision": 0.5752935171005615,
+        "recall": 0.5956659619450317,
+        "f1": 0.5853025188262789
+      },
+      "adaptive": {
+        "tp": 874,
+        "fp": 1085,
+        "fn": 1018,
+        "precision": 0.4461459928534967,
+        "recall": 0.4619450317124736,
+        "f1": 0.45390807582446113
+      }
+    },
+    "TCN, expert labels": {
+      "fixed_0.5": {
+        "tp": 1645,
+        "fp": 174,
+        "fn": 247,
+        "precision": 0.9043430456294668,
+        "recall": 0.8694503171247357,
+        "f1": 0.8865534896254379
+      },
+      "fixed_0.7": {
+        "tp": 1484,
+        "fp": 335,
+        "fn": 408,
+        "precision": 0.8158328752061572,
+        "recall": 0.7843551797040169,
+        "f1": 0.7997844246833736
+      },
+      "adaptive": {
+        "tp": 1392,
+        "fp": 427,
+        "fn": 500,
+        "precision": 0.7652556349642661,
+        "recall": 0.7357293868921776,
+        "f1": 0.7502021018593371
+      }
+    }
+  }
+}

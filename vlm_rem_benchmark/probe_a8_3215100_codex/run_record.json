@@ -1,0 +1,13 @@
+{
+  "animal": "A8",
+  "source_frame_start_elapsed": "321:51:00",
+  "frame_id": "F_6ddb314628bb7472",
+  "model": "gpt-5.6-sol",
+  "interface": "Codex isolated agent",
+  "reasoning_effort": "ultra",
+  "conversation_inherited": false,
+  "annotated_poster_supplied": false,
+  "manual_label_available_during_scoring": false,
+  "input_image": "A8_frame_321-51-00.png",
+  "prediction_file": "codex_raw_prediction.json"
+}

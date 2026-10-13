@@ -1,0 +1,36 @@
+{
+  "objective_score": 0.8333762656623057,
+  "eval_event_f2.0": 0.819423368740516,
+  "eval_precision": 0.6101694915254238,
+  "eval_recall": 0.8962655601659751,
+  "eval_coverage": 0.889187853349464,
+  "eval_purity": 0.8826030813677674,
+  "eval_tp": 216,
+  "eval_fp": 138,
+  "eval_fn": 25,
+  "eval_frame_f1": 0.7435213978972308,
+  "test_name": "COMBINED_CAFFEINE",
+  "test_event_f2.0": 0.7846506300114547,
+  "test_precision": 0.6088888888888889,
+  "test_recall": 0.845679012345679,
+  "test_coverage": 0.8759080243382484,
+  "test_purity": 0.9426876316981904,
+  "test_tp": 274,
+  "test_fp": 176,
+  "test_fn": 50,
+  "test_frame_f1": 0.7747937418582312,
+  "temperature": 1.962058186531067,
+  "start_threshold": 0.45,
+  "stop_threshold": 0.35,
+  "event_mix": 0.36357984345242644,
+  "shared_base_features": [
+    "Motion_Ang_Vector",
+    "OIS_norm"
+  ],
+  "feature_names": [
+    "Motion_Ang_Vector",
+    "OIS_norm",
+    "d_Motion_Ang_Vector",
+    "d_OIS_norm"
+  ]
+}

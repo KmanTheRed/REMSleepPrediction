@@ -1,0 +1,29 @@
+You are scoring one blinded two-panel physiology image for REM.
+
+Use only this instruction and the attached image. Do not use chat history, saved
+memory, retrieval, the web, shell commands, other files, prior predictions, or
+outside knowledge of this particular frame. Do not call tools. Inspect the
+attached image directly.
+
+The image spans 40 minutes from -5 to 35 on its x-axis. The shaded -5 to 0 and
+30 to 35 minute regions are context only. SCORE ONLY the central region between
+the white dashed boundaries at 0 and 30 minutes. The top trace is CBV (IOS
+inverted). The bottom trace is Motion Ang. Vector. Inspect the context, but do
+not report intervals that lie entirely outside 0 to 30 minutes.
+
+A plausible REM episode has a distinct downward CBV descent, trough, and
+recovery while motion is at or near its local baseline. Reject slow drift,
+isolated noise, and CBV changes accompanied by sustained motion. A brief motion
+spike at the terminal boundary can be compatible with awakening from REM.
+
+Report raw candidate boundaries in integer seconds relative to the 0-minute
+scoring boundary, from 0 through 1800. Do not use the left edge of the image as
+zero. If an episode crosses the scored boundary, clip it to 0 or 1800. Do not
+merge nearby episodes and do not remove short episodes; deterministic
+postprocessing occurs later.
+
+Return exactly one JSON object and no prose:
+{"frame_id":"F_6ddb314628bb7472","episodes":[{"start_sec":0,"end_sec":0,"confidence":0.0}]}
+
+Use an empty episodes array when no REM episode is present. Each start must be
+less than its end. Confidence must be between 0 and 1.

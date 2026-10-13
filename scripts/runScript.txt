@@ -1,0 +1,40 @@
+python /workspace/rem_train/train_rem_tcn_event_v9.py \
+  --og_parquet /workspace/rem_train/data/pandas_1.0S.pq \
+  --og_scores /workspace/rem_train/data/ManualScores/pandas_1.0S.txt \
+  --og_base_date 2022-10-04 \
+  --og_ignore_ranges /workspace/rem_train/data/ManualScores/ignore_ranges.txt \
+  --og_window1_start 2022-10-04 \
+  --og_window1_end 2022-10-11 \
+  --og_window2_start 2022-11-25 \
+  --og_window2_end 2022-12-02 \
+  --og_window3_start 2023-01-16 \
+  --og_window3_end 2023-01-23 \
+  --caff_a_parquet /workspace/rem_train/newData/Caffeine_20211021A_optimized_1.0.pq \
+  --caff_a_scores /workspace/rem_train/newData/ManualScores/Caffeine_20211021A/manualscore.txt \
+  --caff_a_base_date 2021-10-25 \
+  --caff_a_start 2021-10-25 \
+  --caff_a_end 2021-11-04 \
+  --caff_b_parquet /workspace/rem_train/newData/Caffeine_20211229B_optimized_1.0.pq \
+  --caff_b_scores /workspace/rem_train/newData/ManualScores/Caffeine_20211229B/manualscores.txt \
+  --caff_b_base_date 2022-01-12 \
+  --caff_b_start 2022-01-12 \
+  --caff_b_end 2022-01-19 \
+  --eval_parquet /workspace/rem_train/newData/Caffeine_20211229B_optimized_1.0.pq \
+  --eval_scores /workspace/rem_train/newData/ManualScores/Caffeine_20211229B/manualscores.txt \
+  --eval_base_date 2022-01-12 \
+  --eval_start 2022-01-12 \
+  --eval_end 2022-01-19 \
+  --test_parquet /workspace/rem_train/newData/COMBINED_CAFFEINE.pq \
+  --test_scores /workspace/rem_train/newData/ManualScores/COMBINED_CAFFEINE/manualscore.txt \
+  --test_base_date 2022-04-08 \
+  --test_start 2022-04-08 \
+  --test_end 2022-04-15 \
+  --outdir /workspace/rem_train/outputs/rem_tcn_event_v9 \
+  --arch dual_tcn \
+  --trials 80 \
+  --epochs 25 \
+  --win 600 \
+  --stride 120 \
+  --amp \
+  --compile
+

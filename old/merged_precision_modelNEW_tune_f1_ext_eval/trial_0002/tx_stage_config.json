@@ -1,0 +1,56 @@
+{
+  "og": "D:\\downloads\\Kethan\\Kethan\\data\\pandas_1.0S.pq",
+  "new": "D:\\downloads\\Kethan\\Kethan\\newData\\Caffeine_20211021A_optimized_1.0.pq",
+  "eval": "D:\\downloads\\Kethan\\Kethan\\newData\\Caffeine_20211229B_optimized_1.0.pq",
+  "outdir": "D:\\downloads\\Kethan\\Kethan\\newData\\merged_precision_modelNEW_tune_f1_ext_eval\\trial_0002",
+  "win": 120,
+  "stride": 1,
+  "epochs": 30,
+  "batch": 128,
+  "seed": 42,
+  "d_model": 96,
+  "heads": 2,
+  "layers": 3,
+  "ff_dim": 480,
+  "dropout": 0.0032519997063279347,
+  "lr": 0.00013221412495096187,
+  "weight_decay": 3.5004987200704795e-05,
+  "patience": 6,
+  "grad_clip": 1.0,
+  "loss": "bce+softf1",
+  "f1_lambda": 0.30784058813919174,
+  "f_beta": 1.0,
+  "temperature": 2.1241214275360107,
+  "threshold": 0.2660236656665802,
+  "features": [
+    "Motion_Ang_Vector",
+    "HR",
+    "OIS_norm",
+    "time_sin",
+    "time_cos",
+    "ts_last_rem",
+    "ts_sleep_onset"
+  ],
+  "objective": "Select by F1 on external eval dataset",
+  "restrictions": {
+    "og_good_train_ranges": [
+      [
+        "2022-10-04",
+        "2022-11-11"
+      ],
+      [
+        "2022-11-19",
+        "2022-12-14"
+      ],
+      [
+        "2022-12-22",
+        "2023-01-04"
+      ],
+      [
+        "2023-01-08",
+        "2023-01-24"
+      ]
+    ],
+    "new_trim": "before first caffeine > 0.0"
+  }
+}
